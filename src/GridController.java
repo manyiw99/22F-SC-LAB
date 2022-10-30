@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class GridController {
     String gridName;
@@ -15,7 +15,7 @@ public class GridController {
         for (int i = 0; i < grids.length; i++) {
             for (int j = 0; j < grids[0].length; j++) {
                 int[] loc={i,j};
-                grids[i][j] = new Grid(loc,null,null,false);
+                grids[i][j] = new Grid(loc, Optional.empty(),Optional.empty(),false);
             }
         }
     }
@@ -27,7 +27,7 @@ public class GridController {
         FLAGS[][] flags = new FLAGS[10][10];
         for (int i = 0; i < grids.length; i++) {
             for (int j = 0; j < grids[0].length; j++) {
-                flags[i][j] = grids[i][j].getFlag();
+                flags[i][j] = grids[i][j].getFlag().orElse(null);
             }
         }
         System.out.println(Arrays.deepToString(flags).replace("], ", "]\n"));
@@ -36,18 +36,18 @@ public class GridController {
         //最开始初始化的时候显示空网格
     }
 
-    public void setGrid(int[] loc, FLAGS f, String name, boolean guess){
+    public void setGrid(int[] loc, Optional<FLAGS> f, Optional<String> name, boolean guess){
         //System.out.println("In gridController class:"+ Arrays.toString(loc) +" "+f +" name: "+name); //ok
         grids[loc[0]][loc[1]].setFlag(f);
         grids[loc[0]][loc[1]].setName(name);
         grids[loc[0]][loc[1]].setGuess(guess);
     }
 
-    public FLAGS retrieveFlag(int[] loc){
+    public Optional<FLAGS> retrieveFlag(int[] loc){
         return grids[loc[0]][loc[1]].getFlag();
     }
 
-    public String retrieveName(int[] loc){
+    public Optional<String> retrieveName(int[] loc){
         return grids[loc[0]][loc[1]].getName();
     }
 
@@ -62,7 +62,7 @@ public class GridController {
         int[] randomLoc = {1,1};
 
 
-        setGrid(randomLoc,FLAGS.B,"B3",false);
+        setGrid(randomLoc,Optional.of(FLAGS.B),Optional.of("B3"),false);
     }
 
     /**
@@ -72,16 +72,19 @@ public class GridController {
      */
     public boolean isSunk(String name){
         boolean result=false;
+        System.out.println(name);
 
         for(int i = 0;i < grids.length; i++){
             for (int j = 0; j < grids[0].length; j++) {
-                if (grids[i][j].getName() == name) {
-                    if (grids[i][j].getFlag() != FLAGS.X) {
-                        result = false;
-                        break;
-                    } else {
-                        result = true;
+                if (grids[i][j].getName().isPresent()) {
+                    if(grids[i][j].getName().get()==name) {
+                        if (grids[i][j].getFlag().get() != FLAGS.X) {
+                            result = false;
+                            break;
+                        } else {
+                            result = true;
 
+                        }
                     }
                 }
             }
@@ -90,10 +93,14 @@ public class GridController {
         return result;
     }
 
+    /**
+     * If boat sunk, recover all flags of this boat from 'X' to it's type
+     * @param name
+     */
     public void recoverFlag(String name){
         FLAGS originalFlag = null;
         for(FLAGS f: FLAGS.values()){
-            if(f.name()==name.substring(0,1)){
+            if(f.name().equals(name.substring(0,1))){
                 originalFlag = f;
                 break;
             }
@@ -101,8 +108,10 @@ public class GridController {
 
         for(int i = 0;i < grids.length; i++){
             for (int j = 0; j < grids[0].length; j++) {
-                if (grids[i][j].getName() == name) {
-                    grids[i][j].setFlag(originalFlag);
+                if(grids[i][j].getName().isPresent()) {
+                    if (grids[i][j].getName().get() == name) {
+                        grids[i][j].setFlag(Optional.of(originalFlag));
+                    }
                 }
             }
         }
@@ -116,6 +125,10 @@ public class GridController {
         this.sunkNum=num;
     }
 
+    /**
+     * Check if the game is finished
+     * @return
+     */
     public boolean isFinish(){
         if(sunkNum==NUM){
             return true;
