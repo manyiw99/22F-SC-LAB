@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -20,7 +21,7 @@ public class StartGame {
         // check if the input value is duplicate
         boolean dup = true;
         for(int i =0; i<loc.size();i++){
-            if(oceanGrid.retrieveFlag(loc.get(i))!=null){
+            if(oceanGrid.retrieveFlag(loc.get(i)).isPresent()){
                 dup=false;
                 break;
             }
@@ -28,7 +29,7 @@ public class StartGame {
 
         if(dup) {
             for (int i = 0; i < loc.size(); i++) {
-                oceanGrid.setGrid(loc.get(i), f, name, guess);
+                oceanGrid.setGrid(loc.get(i), Optional.of(f), Optional.of(name), guess);
             }
             return true;
         }else{
@@ -154,26 +155,26 @@ public class StartGame {
         String result =null;
 
         // Human guess round
-        if (firstPlayer==true){
+        if (firstPlayer){
             System.out.println("Human guess round");
             System.out.println("Enter the guess location:");
             int[] guessNum = tool.FormatInput(0).get(0);
 
-            if(targetGrid.retrieveFlag(guessNum)==null){  //Grid that never been chosen before
+            if(targetGrid.retrieveFlag(guessNum).isEmpty()){  //Grid that never been chosen before
                 result="MISS";
-                targetGrid.setGrid(guessNum,FLAGS.O,targetGrid.retrieveName(guessNum),true);
+                targetGrid.setGrid(guessNum,Optional.of(FLAGS.O), Optional.empty(),true);
                 System.out.println("MISS");
                 targetGrid.drawGrid();
-            }else if((targetGrid.retrieveFlag(guessNum)==FLAGS.C)||(targetGrid.retrieveFlag(guessNum)==FLAGS.B)
-                    ||(targetGrid.retrieveFlag(guessNum)==FLAGS.S)||(targetGrid.retrieveFlag(guessNum)==FLAGS.P)){
+            }else if((targetGrid.retrieveFlag(guessNum).get()==FLAGS.C)||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.B)
+                    ||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.S)||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.P)){
 
-                if(targetGrid.retrieveGuess(guessNum)==false) {  // never been chosen before
-                    targetGrid.setGrid(guessNum, FLAGS.X, targetGrid.retrieveName(guessNum), true);
+                if(!targetGrid.retrieveGuess(guessNum)) {  // never been chosen before
+                    targetGrid.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
 
-                    if (targetGrid.isSunk(targetGrid.retrieveName(guessNum))) {
+                    if (targetGrid.isSunk(targetGrid.retrieveName(guessNum).get())) {
                         result = "sunk";
-                        targetGrid.recoverFlag(targetGrid.retrieveName(guessNum));
-                        System.out.println("Boats " + targetGrid.retrieveName(guessNum) + " of computer sunk");
+                        targetGrid.recoverFlag(targetGrid.retrieveName(guessNum).get());
+                        System.out.println("Boats " + targetGrid.retrieveName(guessNum).get() + " of computer sunk");
                         targetGrid.setSunkNum(targetGrid.getSunkNum()+1);
 
                         if (targetGrid.isFinish()) {
@@ -183,7 +184,7 @@ public class StartGame {
                         targetGrid.drawGrid();
                     } else {
                         result = "HIT";
-                        targetGrid.setGrid(guessNum, FLAGS.X, targetGrid.retrieveName(guessNum), true);
+                        targetGrid.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
                         System.out.println("HIT");
                         targetGrid.drawGrid();
                     }
@@ -192,7 +193,7 @@ public class StartGame {
                     guess(firstPlayer);
                 }
 
-            }else if((targetGrid.retrieveFlag(guessNum)==FLAGS.X)||(targetGrid.retrieveFlag(guessNum)==FLAGS.O)){
+            }else if((targetGrid.retrieveFlag(guessNum).get()==FLAGS.X)||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.O)){
                 System.out.println("Has been chosen before, try again");
                 guess(firstPlayer);
             }
@@ -202,20 +203,20 @@ public class StartGame {
             int[] guessNum = {new Random().nextInt(10),new Random().nextInt(10)};
             System.out.println("Computer guesses location: "+Arrays.toString(guessNum));
 
-            if(oceanGrid.retrieveFlag(guessNum)==null){
+            if(oceanGrid.retrieveFlag(guessNum).isEmpty()){
                 result="MISS";
-                oceanGrid.setGrid(guessNum,FLAGS.O,oceanGrid.retrieveName(guessNum),true);
+                oceanGrid.setGrid(guessNum,Optional.of(FLAGS.O),oceanGrid.retrieveName(guessNum),true);
                 System.out.println("MISS");
                 oceanGrid.drawGrid();
-            }else if((oceanGrid.retrieveFlag(guessNum)==FLAGS.C)||(oceanGrid.retrieveFlag(guessNum)==FLAGS.B)
-                    ||(oceanGrid.retrieveFlag(guessNum)==FLAGS.S)||(oceanGrid.retrieveFlag(guessNum)==FLAGS.P)){
+            }else if((oceanGrid.retrieveFlag(guessNum).get()==FLAGS.C)||(oceanGrid.retrieveFlag(guessNum).get()==FLAGS.B)
+                    ||(oceanGrid.retrieveFlag(guessNum).get()==FLAGS.S)||(oceanGrid.retrieveFlag(guessNum).get()==FLAGS.P)){
                 result="HIT";
-                oceanGrid.setGrid(guessNum,FLAGS.X,oceanGrid.retrieveName(guessNum),true);
+                oceanGrid.setGrid(guessNum,Optional.of(FLAGS.X),oceanGrid.retrieveName(guessNum),true);
                 System.out.println("HIT");
 
-                if (oceanGrid.isSunk(targetGrid.retrieveName(guessNum))){
+                if (oceanGrid.isSunk(targetGrid.retrieveName(guessNum).get())){
                     result = "sunk";
-                    System.out.println("Boats " + oceanGrid.retrieveName(guessNum) + " of human sunk");
+                    System.out.println("Boats " + oceanGrid.retrieveName(guessNum).get() + " of human sunk");
                     oceanGrid.setSunkNum(oceanGrid.getSunkNum()+1);
 
                     if (oceanGrid.isFinish()) {
@@ -225,7 +226,7 @@ public class StartGame {
                 }
 
                 oceanGrid.drawGrid();
-            }else if((oceanGrid.retrieveFlag(guessNum)==FLAGS.X)||(oceanGrid.retrieveFlag(guessNum)==FLAGS.O)){
+            }else if((oceanGrid.retrieveFlag(guessNum).get()==FLAGS.X)||(oceanGrid.retrieveFlag(guessNum).get()==FLAGS.O)){
                 System.out.println("Has been chosen before, try again");
                 guess(firstPlayer);
             }

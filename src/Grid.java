@@ -1,14 +1,16 @@
+import java.util.Optional;
+
 enum FLAGS{
     X,O,C,B,S,P
 }
 
 public class Grid {
     private int[] loc;
-    private FLAGS flag;
-    private String name;
+    private Optional<FLAGS> flag;
+    private Optional<String> name;
     private boolean guess;  // true: guessed before
 
-    public Grid(int[] loc,FLAGS flag, String name, boolean guess){
+    public Grid(int[] loc,Optional<FLAGS> flag, Optional<String> name, boolean guess){
         this.loc=loc;
         this.flag=flag;
         this.name = name;
@@ -20,20 +22,20 @@ public class Grid {
         return loc;
     }
 
-    public void setFlag(FLAGS flag){
+    public void setFlag(Optional<FLAGS> flag){
         // System.out.println("in grid class:"+flag);
         this.flag=flag;
     }
 
-    public FLAGS getFlag(){
+    public Optional<FLAGS> getFlag(){
         return flag;
     }
 
-    public void setName(String name){
+    public void setName(Optional<String> name){
         this.name=name;
     }
 
-    public String getName(){
+    public Optional<String> getName(){
         return name;
     }
 
