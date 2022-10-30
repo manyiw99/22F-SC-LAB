@@ -36,8 +36,10 @@ public class Tools {
     }
 
     /**
-     * input validation
-     * @param length, length = 0 means user is guessing (not place boats)
+     * 1. Input format check
+     * 2. Transform input in the terminal into List<int[]>
+     * @param length
+     *        length = 0 means user is guessing (not place boats), place the return value in the first element of List<int[]>
      * @return List<int[]> means all the cells user chose
      */
     public List<int[]> FormatInput(int length){

@@ -40,7 +40,7 @@ public class GridController {
     }
 
     public void setGrid(int[] loc, FLAGS f, String name, boolean guess){
-        System.out.println("In gridController class:"+ Arrays.toString(loc) +" "+f +" name: "+name); //ok
+        //System.out.println("In gridController class:"+ Arrays.toString(loc) +" "+f +" name: "+name); //ok
         for(int i = 0;i < grids.size(); i++){
             if( Arrays.equals(grids.get(i).getLoc(),loc)){
                 grids.get(i).setFlag(f);
@@ -99,26 +99,51 @@ public class GridController {
     }
 
     /**
-     *
+     * Check if the boat is sunk or not
      * @param name
      * @return true: sunk
      */
     public boolean isSunk(String name){
         boolean result=false;
+
         for(int i = 0;i < grids.size(); i++){
             if( grids.get(i).getName() == name){
-                if (grids.get(i).getFlag() == FLAGS.X) {
-                    result=true;
-                    sunkNum++;
+                if (grids.get(i).getFlag() != FLAGS.X) {
+                    result = false;
                     break;
                 }
                 else{
-                    result=false;
+                    result=true;
+
                 }
             }
         }
 
         return result;
+    }
+
+    public void recoverFlag(String name){
+        FLAGS originalFlag = null;
+        for(FLAGS f: FLAGS.values()){
+            if(f.name()==name.substring(0,1)){
+                originalFlag = f;
+                break;
+            }
+        }
+
+        for(int i = 0;i < grids.size(); i++){
+            if( grids.get(i).getName() == name){
+                grids.get(i).setFlag(originalFlag);
+            }
+        }
+
+    }
+
+    public int getSunkNum(){
+        return sunkNum;
+    }
+    public void setSunkNum(int num){
+        this.sunkNum=num;
     }
 
     public boolean isFinish(){
