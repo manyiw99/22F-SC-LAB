@@ -51,6 +51,16 @@ public class Tools {
         return 10;
     }
 
+    public boolean GuessValidation(String InputLine) {
+        int c = convertLetterToInt(InputLine.charAt(0));
+        int i = Integer.parseInt(InputLine.substring(1));
+        if (c < 0 || c > 9 || i < 0 || i > 9) {
+//            System.out.println("Sorry, your input is invalid. Please try again.");
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 1. Input format check
      * 2. Transform input in the terminal into List<int[]>
