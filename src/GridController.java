@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class GridController {
     String gridName;
@@ -59,12 +60,20 @@ public class GridController {
 
 
     public void generateRandomGrid(){
-
+        // Initialize first and final location of a boat
+        int[] firstLoc = {0, 0};
+        int[] finalLoc = {0, 1};
+        // Init the direction of boat
+        // value 0 for goes up, 1 for right, 2 for down, 3 for right
+        int dir = 0;
         // 随机生成坐标， eg.[1,2],[1,3]
         // 生成所有船的位置之后，挨个set每个格子
+        // Generate one Carrier
+        // first randomly generate firstLoc
+
+
+
         int[] randomLoc = {1,1};
-
-
         setGrid(randomLoc,Optional.of(FLAGS.B),Optional.of("B3"),false);
     }
 
