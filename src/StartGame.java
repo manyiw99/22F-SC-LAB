@@ -7,7 +7,7 @@ import java.util.Random;
  * Start class
  */
 public class StartGame {
-    GridController oceanGrid, targetGrid;
+    GridController oceanGrid, targetGrid, targetGrid_show; //oceanGrid: human  targetGrid: computer  targetGrid_show: grid shown to human
     Tools tool;
 
     /**
@@ -46,11 +46,12 @@ public class StartGame {
                 submarine2Loc,submarine3Loc, patrol1Loc, patrol2Loc, patrol3Loc, patrol4Loc;
 
         oceanGrid = new GridController("OCEAN GRID");
-        targetGrid = new GridController("TARGET GRID");
+        targetGrid = new GridController("TARGET GRID - ACTUAL");
+        targetGrid_show = new GridController("TARGET GRID");
 
         // Empty game board
+        targetGrid_show.drawGrid();
         oceanGrid.drawGrid();
-        targetGrid.drawGrid();
 
         tool = new Tools();
 
@@ -132,7 +133,7 @@ public class StartGame {
 
         targetGrid.generateRandomGrid();
         System.out.println("Computer has placed all boats.");
-        targetGrid.drawGrid();
+        targetGrid_show.drawGrid();
         oceanGrid.drawGrid();
     }
 
@@ -163,17 +164,24 @@ public class StartGame {
             if(targetGrid.retrieveFlag(guessNum).isEmpty()){  //Grid that never been chosen before
                 result="MISS";
                 targetGrid.setGrid(guessNum,Optional.of(FLAGS.O), Optional.empty(),true);
+                targetGrid_show.setGrid(guessNum,Optional.of(FLAGS.O), Optional.empty(),true);
                 System.out.println("MISS");
-                targetGrid.drawGrid();
+                targetGrid_show.drawGrid();
             }else if((targetGrid.retrieveFlag(guessNum).get()==FLAGS.C)||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.B)
                     ||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.S)||(targetGrid.retrieveFlag(guessNum).get()==FLAGS.P)){
 
                 if(!targetGrid.retrieveGuess(guessNum)) {  // never been chosen before
                     targetGrid.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
+                    targetGrid_show.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
 
                     if (targetGrid.isSunk(targetGrid.retrieveName(guessNum).get())) {
                         result = "sunk";
-                        targetGrid.recoverFlag(targetGrid.retrieveName(guessNum).get());
+                        List<int[]> locs = targetGrid.recoverFlag(targetGrid.retrieveName(guessNum).get());
+                        for(int i=0; i< locs.size();i++){
+                            targetGrid_show.setGrid(locs.get(i),targetGrid.retrieveFlag(locs.get(i)),
+                                    targetGrid.retrieveName(locs.get(i)),true);
+                        }
+
                         System.out.println("Boats " + targetGrid.retrieveName(guessNum).get() + " of computer sunk");
                         targetGrid.setSunkNum(targetGrid.getSunkNum()+1);
 
@@ -181,12 +189,13 @@ public class StartGame {
                             result = "Human wins";
                             System.out.println("all boats of computer sunk");
                         }
-                        targetGrid.drawGrid();
+                        targetGrid_show.drawGrid();
                     } else {
                         result = "HIT";
                         targetGrid.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
+                        targetGrid_show.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
                         System.out.println("HIT");
-                        targetGrid.drawGrid();
+                        targetGrid_show.drawGrid();
                     }
                 }else{
                     System.out.println("Has been chosen before, try again");
