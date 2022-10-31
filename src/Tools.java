@@ -29,10 +29,65 @@ public class Tools {
             return 0;
         }else if(L=='B'){
             return 1;
+        }else if(L=='C') {
+            return 2;
+        }else if(L=='D'){
+            return 3;
+        }else if(L=='E'){
+            return 4;
+        }else if(L=='F'){
+            return 5;
+        }else if(L=='G'){
+            return 6;
+        }else if(L=='H'){
+            return 7;
+        }else if(L=='I'){
+            return 8;
+        }else if(L=='J'){
+            return 9;
         }
         // 补充其余字母
 
-        return 0;
+        return 10;
+    }
+
+    public boolean GuessValidation(String InputLine) {
+        int c = convertLetterToInt(InputLine.charAt(0));
+        int i = Integer.parseInt(InputLine.substring(1));
+        if (c < 0 || c > 9 || i < 0 || i > 9) {
+//            System.out.println("Sorry, your input is invalid. Please try again.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean PlacementValidation(String InputLine, int length) {
+        if(InputLine.length() != 5) {
+            return false;
+        }
+        String[] pos = InputLine.split(",");
+        if (!GuessValidation(pos[0]) || !GuessValidation(pos[1])) {
+            return false;
+        }
+        char start1 = pos[0].charAt(0);
+        char start2 = pos[1].charAt(0);
+        int pos1 = Integer.parseInt(pos[0].substring(1));
+        int pos2 = Integer.parseInt(pos[1].substring(1));
+        int dif1 = start2 - start1;
+        int dif2 = pos2 - pos1;
+        // they are not in the same column or row
+        if (dif1 != 0 && dif2 != 0) {
+            return false;
+        }
+        // they are in the same column but the length is incorrect
+        if (dif1 == 0 && dif2 != length) {
+            return false;
+        }
+        // they are in the same row but the length is incorrect
+        if (dif2 == 0 && dif1 != length) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -42,8 +97,8 @@ public class Tools {
      *        length = 0 means user is guessing (not place boats), place the return value in the first element of List<int[]>
      * @return List<int[]> means all the cells user chose
      */
-    public List<int[]> FormatInput(int length){
-        String inputLine = readUser();
+    public List<int[]> FormatInput(int length, String inputLine){
+//        String inputLine = readUser();
         // Convert string to List<String>, split by comma
         List<String> locations = Arrays.asList(inputLine.split("\\s*,\\s*"));
         List<int[]> result = new ArrayList<>();
