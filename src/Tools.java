@@ -29,10 +29,26 @@ public class Tools {
             return 0;
         }else if(L=='B'){
             return 1;
+        }else if(L=='C') {
+            return 2;
+        }else if(L=='D'){
+            return 3;
+        }else if(L=='E'){
+            return 4;
+        }else if(L=='F'){
+            return 5;
+        }else if(L=='G'){
+            return 6;
+        }else if(L=='H'){
+            return 7;
+        }else if(L=='I'){
+            return 8;
+        }else if(L=='J'){
+            return 9;
         }
         // 补充其余字母
 
-        return 0;
+        return 10;
     }
 
     /**
