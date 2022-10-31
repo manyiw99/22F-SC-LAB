@@ -14,7 +14,7 @@ public class StartGame {
      * @param name
      * @param guess
      */
-    public boolean placeBoat(List<int[]> loc, FLAGS f, String name, boolean guess){
+    public boolean placeBoat(List<int[]> loc, FLAGS f, String name, boolean guess, String input, int length){
         // check if the input value is duplicate
         boolean dup = true;
         for(int i =0; i<loc.size();i++){
@@ -24,15 +24,23 @@ public class StartGame {
             }
         }
 
-        if(dup) {
+        boolean valid = tool.PlacementValidation(input, length);
+        System.out.println(valid);
+
+        if(dup && valid) {
             for (int i = 0; i < loc.size(); i++) {
                 oceanGrid.setGrid(loc.get(i), Optional.of(f), Optional.of(name), guess);
             }
             return true;
-        }else{
+        }else if (valid && !dup){
             System.out.println("Your input value already exists. Please try again.");
             return false;
+        }else if (!valid && dup){
+            System.out.println("Your input value is invalid. Please try again.");
+            return false;
         }
+        System.out.println("Your input value is invalid. Please try again.");
+        return false;
     }
 
     /**
@@ -56,74 +64,84 @@ public class StartGame {
         boolean c_dup=false;
         while(c_dup==false){
             System.out.println("Place boats carrier (length 6): ");
-            carrierLoc = tool.FormatInput(6);
-            c_dup = placeBoat(carrierLoc,FLAGS.C,"C",false);
+            String input = tool.readUser();
+            carrierLoc = tool.FormatInput(6, input);
+            c_dup = placeBoat(carrierLoc,FLAGS.C,"C",false, input, 6);
         }
 
         // Place boat battleship------------------------------------------------------------------------------------
         boolean b1_dup = false;
         while(b1_dup==false) {
-            System.out.println("Place boats BattleShip 1: ");
-            battleShip1Loc = tool.FormatInput(4);
-            b1_dup=placeBoat(battleShip1Loc, FLAGS.B, "B1", false);
+            System.out.println("Place boats BattleShip 1 (length 4): ");
+            String input = tool.readUser();
+            battleShip1Loc = tool.FormatInput(4, input);
+            b1_dup=placeBoat(battleShip1Loc, FLAGS.B, "B1", false, input, 4);
         }
 
         boolean b2_dup = false;
         while(b2_dup==false) {
-            System.out.println("Place boats BattleShip 2: ");
-            battleShip2Loc = tool.FormatInput(4);
-            b2_dup=placeBoat(battleShip2Loc, FLAGS.B, "B2", false);
+            System.out.println("Place boats BattleShip 2 (length 4): ");
+            String input = tool.readUser();
+            battleShip2Loc = tool.FormatInput(4, input);
+            b2_dup=placeBoat(battleShip2Loc, FLAGS.B, "B2", false, input, 4);
         }
 
         // Place boat s---------------------------------------------------------------------------------------------
         boolean s1_dup = false;
         while(s1_dup==false) {
-            System.out.println("Place s1: ");
-            submarine1Loc = tool.FormatInput(3);
-            s1_dup=placeBoat(submarine1Loc, FLAGS.S, "S1", false);
+            System.out.println("Place s1 (length 3): ");
+            String input = tool.readUser();
+            submarine1Loc = tool.FormatInput(3, input);
+            s1_dup=placeBoat(submarine1Loc, FLAGS.S, "S1", false, input, 3);
         }
 
         boolean s2_dup = false;
         while (s2_dup==false) {
-            System.out.println("Place s2: ");
-            submarine2Loc = tool.FormatInput(3);
-            s2_dup=placeBoat(submarine2Loc, FLAGS.S, "S2", false);
+            System.out.println("Place s2 (length 3): ");
+            String input = tool.readUser();
+            submarine2Loc = tool.FormatInput(3, input);
+            s2_dup=placeBoat(submarine2Loc, FLAGS.S, "S2", false, input,3);
         }
 
         boolean s3_dup = false;
         while (s3_dup==false) {
-            System.out.println("Place s3: ");
-            submarine3Loc = tool.FormatInput(3);
-            s3_dup=placeBoat(submarine3Loc, FLAGS.S, "S3", false);
+            System.out.println("Place s3 (length 3): ");
+            String input = tool.readUser();
+            submarine3Loc = tool.FormatInput(3, input);
+            s3_dup=placeBoat(submarine3Loc, FLAGS.S, "S3", false, input, 3);
         }
 
         // Place boat p------------------------------------------------------------------------------------------------
         boolean p1_dup = false;
         while (p1_dup==false) {
-            System.out.println("Place p1: ");
-            patrol1Loc = tool.FormatInput(2);
-            p1_dup=placeBoat(patrol1Loc, FLAGS.P, "P1", false);
+            System.out.println("Place p1 (length 2): ");
+            String input = tool.readUser();
+            patrol1Loc = tool.FormatInput(2, input);
+            p1_dup=placeBoat(patrol1Loc, FLAGS.P, "P1", false, input, 2);
         }
 
         boolean p2_dup = false;
         while(p2_dup==false) {
-            System.out.println("Place p2: ");
-            patrol2Loc = tool.FormatInput(2);
-            p2_dup=placeBoat(patrol2Loc, FLAGS.P, "P2", false);
+            System.out.println("Place p2 (length 2): ");
+            String input = tool.readUser();
+            patrol2Loc = tool.FormatInput(2, input);
+            p2_dup=placeBoat(patrol2Loc, FLAGS.P, "P2", false, input, 2);
         }
 
         boolean p3_dup = false;
         while (p3_dup==false) {
-            System.out.println("Place p3: ");
-            patrol3Loc = tool.FormatInput(2);
-            p3_dup=placeBoat(patrol3Loc, FLAGS.P, "P3", false);
+            System.out.println("Place p3 (length 2): ");
+            String input = tool.readUser();
+            patrol3Loc = tool.FormatInput(2, input);
+            p3_dup=placeBoat(patrol3Loc, FLAGS.P, "P3", false, input, 2);
         }
 
         boolean p4_dup = false;
         while (p4_dup==false) {
-            System.out.println("Place p4: ");
-            patrol4Loc = tool.FormatInput(2);
-            p4_dup=placeBoat(patrol4Loc, FLAGS.P, "P4", false);
+            System.out.println("Place p4 (length 2): ");
+            String input = tool.readUser();
+            patrol4Loc = tool.FormatInput(2, input);
+            p4_dup=placeBoat(patrol4Loc, FLAGS.P, "P4", false, input, 2);
         }
 
         System.out.println("Human has placed all boats.");
