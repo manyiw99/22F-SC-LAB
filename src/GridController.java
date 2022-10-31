@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,16 +24,39 @@ public class GridController {
     }
 
     public void drawGrid(){
-        System.out.println("===" + gridName + "===");
-        System.out.println("A---------------J");
+        System.out.println("  ==== " + gridName + " ====");
+        System.out.println("  A B C D E F G H I J");
+        System.out.println(" +-+-+-+-+-+-+-+-+-+-+");
 
-        FLAGS[][] flags = new FLAGS[10][10];
+//        FLAGS[][] flags = new FLAGS[10][10];
         for (int i = 0; i < grids.length; i++) {
+            System.out.print(i + "|");
             for (int j = 0; j < grids[0].length; j++) {
-                flags[i][j] = grids[i][j].getFlag().orElse(null);
+                if(grids[i][j].getFlag().isEmpty()){
+                    System.out.print(" |");
+                }else{
+                    FLAGS f = grids[i][j].getFlag().get();
+                    if(f == FLAGS.X){
+                        System.out.print("X|");
+                    } else if(f == FLAGS.B){
+                        System.out.print("B|");
+                    } else if(f == FLAGS.C){
+                        System.out.print("C|");
+                    } else if(f == FLAGS.P){
+                        System.out.print("P|");
+                    } else if(f == FLAGS.O){
+                        System.out.print("O|");
+                    } else if(f == FLAGS.S){
+                        System.out.print("S|");
+                    }
+                }
+//                flags[i][j] = grids[i][j].getFlag().orElse(null);
             }
+            System.out.println(i);
         }
-        System.out.println(Arrays.deepToString(flags).replace("], ", "]\n"));
+        System.out.println(" +-+-+-+-+-+-+-+-+-+-+");
+        System.out.println("  A B C D E F G H I J\n");
+//        System.out.println(Arrays.deepToString(flags).replace("], ", "]\n"));
 
         //补充标题之类 --> 将页面显示完整 (隐藏逻辑)
         //最开始初始化的时候显示空网格
