@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Start class
@@ -157,9 +154,20 @@ public class StartGame {
 
         // Human guess round
         if (firstPlayer){
-            System.out.println("Human guess round");
-            System.out.println("Enter the guess location:");
-            int[] guessNum = tool.FormatInput(0).get(0);
+            boolean valid = false;
+            int[] guessNum = {-1, -1};
+            while (!valid) {
+                System.out.println("Human guess round");
+                System.out.println("Enter the guess location:");
+                String input = tool.readUser();
+                valid = tool.GuessValidation(input);
+                if (!valid) {
+                    System.out.println("Sorry, your input is invalid. Please try again");
+                } else {
+                    guessNum[0] = tool.convertLetterToInt(input.charAt(0));
+                    guessNum[1] = Integer.parseInt(input.substring(1));
+                }
+            }
 
             if(targetGrid.retrieveFlag(guessNum).isEmpty()){  //Grid that never been chosen before
                 result="MISS";
