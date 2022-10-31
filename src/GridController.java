@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class GridController {
@@ -59,6 +61,7 @@ public class GridController {
     public void generateRandomGrid(){
 
         // 随机生成坐标， eg.[1,2],[1,3]
+        // 生成所有船的位置之后，挨个set每个格子
         int[] randomLoc = {1,1};
 
 
@@ -97,7 +100,9 @@ public class GridController {
      * If boat sunk, recover all flags of this boat from 'X' to it's type
      * @param name
      */
-    public void recoverFlag(String name){
+    public List<int[]> recoverFlag(String name){
+        List<int[]> locs = new ArrayList<>();
+
         FLAGS originalFlag = null;
         for(FLAGS f: FLAGS.values()){
             if(f.name().equals(name.substring(0,1))){
@@ -111,11 +116,13 @@ public class GridController {
                 if(grids[i][j].getName().isPresent()) {
                     if (grids[i][j].getName().get() == name) {
                         grids[i][j].setFlag(Optional.of(originalFlag));
+                        locs.add(new int[]{i,j});
                     }
                 }
             }
         }
 
+        return locs;
     }
 
     public int getSunkNum(){
