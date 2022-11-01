@@ -24,7 +24,7 @@ public class GridController {
     }
 
     public void drawGrid(){
-        System.out.println("  ==== " + gridName + " ====");
+        System.out.println(" ==== " + gridName + " ====");
         System.out.println("  A B C D E F G H I J");
         System.out.println(" +-+-+-+-+-+-+-+-+-+-+");
 
@@ -58,8 +58,6 @@ public class GridController {
         System.out.println("  A B C D E F G H I J\n");
 //        System.out.println(Arrays.deepToString(flags).replace("], ", "]\n"));
 
-        //补充标题之类 --> 将页面显示完整 (隐藏逻辑)
-        //最开始初始化的时候显示空网格
     }
 
     public void setGrid(int[] loc, Optional<FLAGS> f, Optional<String> name, boolean guess){

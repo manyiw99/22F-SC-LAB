@@ -46,7 +46,6 @@ public class Tools {
         }else if(L=='J'){
             return 9;
         }
-        // 补充其余字母
 
         return 10;
     }
