@@ -79,11 +79,11 @@ public class Tools {
             return false;
         }
         // they are in the same column but the length is incorrect
-        if (dif1 == 0 && dif2 != length) {
+        if (dif1 == 0 && dif2 != length - 1) {
             return false;
         }
         // they are in the same row but the length is incorrect
-        if (dif2 == 0 && dif1 != length) {
+        if (dif2 == 0 && dif1 != length - 1) {
             return false;
         }
         return true;
