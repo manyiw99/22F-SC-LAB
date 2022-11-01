@@ -72,8 +72,8 @@ public class Tools {
         char start2 = pos[1].charAt(0);
         int pos1 = Integer.parseInt(pos[0].substring(1));
         int pos2 = Integer.parseInt(pos[1].substring(1));
-        int dif1 = start2 - start1;
-        int dif2 = pos2 - pos1;
+        int dif1 = Math.abs(start2 - start1);
+        int dif2 = Math.abs(pos2 - pos1);
         // they are not in the same column or row
         if (dif1 != 0 && dif2 != 0) {
             return false;
