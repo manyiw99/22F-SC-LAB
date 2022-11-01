@@ -61,6 +61,35 @@ public class Tools {
         return true;
     }
 
+    public boolean PlacementValidation(String InputLine, int length) {
+        if(InputLine.length() != 5) {
+            return false;
+        }
+        String[] pos = InputLine.split(",");
+        if (!GuessValidation(pos[0]) || !GuessValidation(pos[1])) {
+            return false;
+        }
+        char start1 = pos[0].charAt(0);
+        char start2 = pos[1].charAt(0);
+        int pos1 = Integer.parseInt(pos[0].substring(1));
+        int pos2 = Integer.parseInt(pos[1].substring(1));
+        int dif1 = start2 - start1;
+        int dif2 = pos2 - pos1;
+        // they are not in the same column or row
+        if (dif1 != 0 && dif2 != 0) {
+            return false;
+        }
+        // they are in the same column but the length is incorrect
+        if (dif1 == 0 && dif2 != length) {
+            return false;
+        }
+        // they are in the same row but the length is incorrect
+        if (dif2 == 0 && dif1 != length) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 1. Input format check
      * 2. Transform input in the terminal into List<int[]>
@@ -68,8 +97,8 @@ public class Tools {
      *        length = 0 means user is guessing (not place boats), place the return value in the first element of List<int[]>
      * @return List<int[]> means all the cells user chose
      */
-    public List<int[]> FormatInput(int length){
-        String inputLine = readUser();
+    public List<int[]> FormatInput(int length, String inputLine){
+//        String inputLine = readUser();
         // Convert string to List<String>, split by comma
         List<String> locations = Arrays.asList(inputLine.split("\\s*,\\s*"));
         List<int[]> result = new ArrayList<>();
