@@ -94,6 +94,7 @@ public class GridController {
         // 随机生成坐标， eg.[1,2],[1,3]
         // 生成所有船的位置之后，挨个set每个格子
         // Generate one Carrier
+<<<<<<< Updated upstream
         // first randomly generate firstLoc
         boolean b = true;
         while (b) {
@@ -156,11 +157,32 @@ public class GridController {
 
         int[] randomLoc = {1, 1};
         setGrid(randomLoc, Optional.of(FLAGS.B), Optional.of("B3"), false);
+=======
+        generateRandomBoat(6,"C1", FLAGS.C);
+        // Generate two Battleships
+        generateRandomBoat(4,"B1", FLAGS.B);
+        generateRandomBoat(4,"B2", FLAGS.B);
+        // Generate three Submarines
+        generateRandomBoat(3, "S1", FLAGS.S);
+        generateRandomBoat(3, "S2", FLAGS.S);
+        generateRandomBoat(3, "S3", FLAGS.S);
+        // Generate four Patrol boats
+        generateRandomBoat(2, "P1", FLAGS.P);
+        generateRandomBoat(2, "P2", FLAGS.P);
+        generateRandomBoat(2, "P3", FLAGS.P);
+        generateRandomBoat(2, "P4", FLAGS.P);
+
+>>>>>>> Stashed changes
     }
 
     // method for generate correct boat and set grid to every location of boat
+    // input length, boat name and flag
     // length 6 for carrier, 4 for battleship, 3 for submarines, 2 for Patrol boat
+<<<<<<< Updated upstream
     public void generateRandomBoat(int len) {
+=======
+    public void generateRandomBoat(int len, String boatName,FLAGS f) {
+>>>>>>> Stashed changes
         int[] firstLoc = {0, 0};
         int[] finalLoc = {0, 1};
         int x, y; // x and y axis value
@@ -173,9 +195,13 @@ public class GridController {
             x = r.nextInt(10);
             y = r.nextInt(10);
             firstLoc = new int[]{x, y};
+            if (grids[x][y].getFlag().isEmpty()) {
+                continue;
+            }
             dir = r.nextInt(4);
             switch (dir) {
                 case 0:
+<<<<<<< Updated upstream
                     y = y - len;
                     finalLoc = new int[]{x, y};
                     break;
@@ -195,29 +221,72 @@ public class GridController {
             // check if the boat is in right bound
             if (finalLoc[0] < 10 && finalLoc[1] < 10 && finalLoc[0] > -1 && finalLoc[1] > -1) {
                 b = false; //correct, jump out of the loop
+=======
+                    y = y - (len - 1);
+                    finalLoc = new int[]{x, y};
+                    break;
+                case 1:
+                    x = x + (len - 1);
+                    finalLoc = new int[]{x, y};
+                    break;
+                case 2:
+                    y = y + (len - 1);
+                    finalLoc = new int[]{x, y};
+                    break;
+                case 3:
+                    x = x - (len - 1);
+                    finalLoc = new int[]{x, y};
+                    break;
+            }
+            // check if the boat is in right bound and has no ship overlap
+            if (finalLoc[0] < 10 && finalLoc[1] < 10 && finalLoc[0] > -1 && finalLoc[1] > -1) {
+                if(isOverlap(firstLoc,len,dir))
+                    b = false; //correct, jump out of the loop and keep setting grid
+                else
+                    continue; //false, overlap occurs, reproduce the random number
+>>>>>>> Stashed changes
                 // set grid
                 switch (dir) {
                     case 0:
                         for (int i = 0; i < len; i++) {
+<<<<<<< Updated upstream
                             setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
+=======
+                            setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
+>>>>>>> Stashed changes
                             firstLoc[1] = firstLoc[1] - 1;
                         }
                         break;
                     case 1:
+<<<<<<< Updated upstream
                         for (int i = 0; i < 6; i++) {
                             setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
+=======
+                        for (int i = 0; i < len; i++) {
+                            setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
+>>>>>>> Stashed changes
                             firstLoc[0] = firstLoc[0] + 1;
                         }
                         break;
                     case 2:
+<<<<<<< Updated upstream
                         for (int i = 0; i < 6; i++) {
                             setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
+=======
+                        for (int i = 0; i < len; i++) {
+                            setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
+>>>>>>> Stashed changes
                             firstLoc[1] = firstLoc[1] + 1;
                         }
                         break;
                     case 3:
+<<<<<<< Updated upstream
                         for (int i = 0; i < 6; i++) {
                             setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
+=======
+                        for (int i = 0; i < len; i++) {
+                            setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
+>>>>>>> Stashed changes
                             firstLoc[0] = firstLoc[0] - 1;
                         }
                         break;
@@ -226,6 +295,46 @@ public class GridController {
             }
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    // method for check the whole boat if it is overlap
+    // return true for overlap occurs
+    // return false for no overlap
+    public boolean isOverlap(int[] firstLoc,int len, int dir){
+        int x = firstLoc[0];
+        int y = firstLoc[1];
+        // first judge if it is in the right boundary
+        if(x<10&&y<10&&x>-1&&y>-1){
+            //if true, then check the whole boat if it is overlap with other existed boat
+            for(int i=0;i<len;i++){
+                if(grids[x][y].getFlag().isEmpty()){
+                    switch (dir){
+                        case 0:
+                            y = y - 1;
+                            break;
+                        case 1:
+                            x = x + 1;
+                            break;
+                        case 2:
+                            y = y + 1;
+                            break;
+                        case 3:
+                            x = x - 1;
+                            break;
+                    }
+                    continue;
+                }
+                else
+                    return true; // overlap occurs
+            }
+            // all location of the boat is clear, no overlap
+            return false;
+        }
+        else
+            return true; // overlap occurs
+    }
+>>>>>>> Stashed changes
 
     /**
      * Check if the boat is sunk or not
