@@ -252,7 +252,7 @@ public class StartGame {
                 oceanGrid.setGrid(guessNum, Optional.of(FLAGS.X), oceanGrid.retrieveName(guessNum), true);
                 System.out.println("HIT");
 
-                if (oceanGrid.isSunk(targetGrid.retrieveName(guessNum).get())) {
+                if (oceanGrid.isSunk(oceanGrid.retrieveName(guessNum).get())) {
                     result = "sunk";
                     System.out.println("Boats " + oceanGrid.retrieveName(guessNum).get() + " of human sunk");
                     oceanGrid.setSunkNum(oceanGrid.getSunkNum() + 1);
