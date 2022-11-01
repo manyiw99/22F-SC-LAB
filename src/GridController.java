@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class GridController {
     String gridName;
@@ -80,21 +81,157 @@ public class GridController {
     }
 
 
-    public void generateRandomGrid(){
 
+    public void generateRandomGrid(){
+        // Initialize first and final location of a boat
+        int[] firstLoc = {0, 0};
+        int[] finalLoc = {0, 1};
+        int x,y; // x and y axis value
+        int len = 2; // boat length
+        // Init the direction of boat
+        // value 0 for goes up, 1 for right, 2 for down, 3 for right
+        int dir = 0;
+        Random r = new Random();
         // 随机生成坐标， eg.[1,2],[1,3]
         // 生成所有船的位置之后，挨个set每个格子
+        // Generate one Carrier
+        // first randomly generate firstLoc
+        boolean b = true;
+        while (b){
+            x = r.nextInt(10);
+            y = r.nextInt(10);
+            firstLoc = new int[]{x, y};
+            dir = r.nextInt(4);
+            switch (dir){
+                case 0:
+                    y = y-5;
+                    finalLoc = new int[]{x,y};
+                    break;
+                case 1:
+                    x = x+5;
+                    finalLoc = new int[]{x,y};
+                    break;
+                case 2:
+                    y = y+5;
+                    finalLoc = new int[]{x,y};
+                    break;
+                case 3:
+                    x = x-5;
+                    finalLoc = new int[]{x,y};
+                    break;
+            }
+            // check if the boat is in right bound
+            if(finalLoc[0]<10 && finalLoc[1]<10 && finalLoc[0]>-1 && finalLoc[1]>-1){
+                b = false; //correct, jump out of the loop
+                // set grid
+                switch (dir){
+                    case 0:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[1] = firstLoc[1] - 1;
+                        }
+                        break;
+                    case 1:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[0] = firstLoc[0] + 1;
+                        }
+                        break;
+                    case 2:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[1] = firstLoc[1] + 1;
+                        }
+                        break;
+                    case 3:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[0] = firstLoc[0] - 1;
+                        }
+                        break;
+                }
+
+            }
+        }
+
+
         int[] randomLoc = {1,1};
-
-
         setGrid(randomLoc,Optional.of(FLAGS.B),Optional.of("B3"),false);
     }
 
-    /**
-     * Check if the boat is sunk or not
-     * @param name
-     * @return true: sunk
-     */
+    // method for generate correct boat and set grid to every location of boat
+    // length 6 for carrier, 4 for battleship, 3 for submarines, 2 for Patrol boat
+    public void generateRandomBoat(int len){
+        int[] firstLoc = {0, 0};
+        int[] finalLoc = {0, 1};
+        int x,y; // x and y axis value
+        // Init the direction of boat
+        // value 0 for goes up, 1 for right, 2 for down, 3 for right
+        int dir = 0;
+        boolean b = true;
+        Random r = new Random();
+        while (b){
+            x = r.nextInt(10);
+            y = r.nextInt(10);
+            firstLoc = new int[]{x, y};
+            dir = r.nextInt(4);
+            switch (dir){
+                case 0:
+                    y = y-len;
+                    finalLoc = new int[]{x,y};
+                    break;
+                case 1:
+                    x = x+len;
+                    finalLoc = new int[]{x,y};
+                    break;
+                case 2:
+                    y = y+len;
+                    finalLoc = new int[]{x,y};
+                    break;
+                case 3:
+                    x = x-len;
+                    finalLoc = new int[]{x,y};
+                    break;
+            }
+            // check if the boat is in right bound
+            if(finalLoc[0]<10 && finalLoc[1]<10 && finalLoc[0]>-1 && finalLoc[1]>-1){
+                b = false; //correct, jump out of the loop
+                // set grid
+                switch (dir){
+                    case 0:
+                        for(int i=0;i<len;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[1] = firstLoc[1] - 1;
+                        }
+                        break;
+                    case 1:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[0] = firstLoc[0] + 1;
+                        }
+                        break;
+                    case 2:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[1] = firstLoc[1] + 1;
+                        }
+                        break;
+                    case 3:
+                        for(int i=0;i<6;i++){
+                            setGrid(firstLoc,Optional.of(FLAGS.C),Optional.of("C1"),false);
+                            firstLoc[0] = firstLoc[0] - 1;
+                        }
+                        break;
+                }
+
+            }
+        }
+
+        /**
+         * Check if the boat is sunk or not
+         * @param name
+         * @return true: sunk
+         */
     public boolean isSunk(String name){
         boolean result=false;
         System.out.println(name);
