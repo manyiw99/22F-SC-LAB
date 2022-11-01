@@ -81,83 +81,9 @@ public class GridController {
     }
 
 
-    public void generateRandomGrid() {
-        // Initialize first and final location of a boat
-        int[] firstLoc = {0, 0};
-        int[] finalLoc = {0, 1};
-        int x, y; // x and y axis value
-        int len = 2; // boat length
-        // Init the direction of boat
-        // value 0 for goes up, 1 for right, 2 for down, 3 for right
-        int dir = 0;
-        Random r = new Random();
-        // 随机生成坐标， eg.[1,2],[1,3]
-        // 生成所有船的位置之后，挨个set每个格子
+    // method for generate multiple ships using method generateRandomBoat
+    public void generateRandomGrid(){
         // Generate one Carrier
-<<<<<<< Updated upstream
-        // first randomly generate firstLoc
-        boolean b = true;
-        while (b) {
-            x = r.nextInt(10);
-            y = r.nextInt(10);
-            firstLoc = new int[]{x, y};
-            dir = r.nextInt(4);
-            switch (dir) {
-                case 0:
-                    y = y - 5;
-                    finalLoc = new int[]{x, y};
-                    break;
-                case 1:
-                    x = x + 5;
-                    finalLoc = new int[]{x, y};
-                    break;
-                case 2:
-                    y = y + 5;
-                    finalLoc = new int[]{x, y};
-                    break;
-                case 3:
-                    x = x - 5;
-                    finalLoc = new int[]{x, y};
-                    break;
-            }
-            // check if the boat is in right bound
-            if (finalLoc[0] < 10 && finalLoc[1] < 10 && finalLoc[0] > -1 && finalLoc[1] > -1) {
-                b = false; //correct, jump out of the loop
-                // set grid
-                switch (dir) {
-                    case 0:
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-                            firstLoc[1] = firstLoc[1] - 1;
-                        }
-                        break;
-                    case 1:
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-                            firstLoc[0] = firstLoc[0] + 1;
-                        }
-                        break;
-                    case 2:
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-                            firstLoc[1] = firstLoc[1] + 1;
-                        }
-                        break;
-                    case 3:
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-                            firstLoc[0] = firstLoc[0] - 1;
-                        }
-                        break;
-                }
-
-            }
-        }
-
-
-        int[] randomLoc = {1, 1};
-        setGrid(randomLoc, Optional.of(FLAGS.B), Optional.of("B3"), false);
-=======
         generateRandomBoat(6,"C1", FLAGS.C);
         // Generate two Battleships
         generateRandomBoat(4,"B1", FLAGS.B);
@@ -172,17 +98,12 @@ public class GridController {
         generateRandomBoat(2, "P3", FLAGS.P);
         generateRandomBoat(2, "P4", FLAGS.P);
 
->>>>>>> Stashed changes
     }
 
     // method for generate correct boat and set grid to every location of boat
     // input length, boat name and flag
     // length 6 for carrier, 4 for battleship, 3 for submarines, 2 for Patrol boat
-<<<<<<< Updated upstream
-    public void generateRandomBoat(int len) {
-=======
     public void generateRandomBoat(int len, String boatName,FLAGS f) {
->>>>>>> Stashed changes
         int[] firstLoc = {0, 0};
         int[] finalLoc = {0, 1};
         int x, y; // x and y axis value
@@ -201,27 +122,6 @@ public class GridController {
             dir = r.nextInt(4);
             switch (dir) {
                 case 0:
-<<<<<<< Updated upstream
-                    y = y - len;
-                    finalLoc = new int[]{x, y};
-                    break;
-                case 1:
-                    x = x + len;
-                    finalLoc = new int[]{x, y};
-                    break;
-                case 2:
-                    y = y + len;
-                    finalLoc = new int[]{x, y};
-                    break;
-                case 3:
-                    x = x - len;
-                    finalLoc = new int[]{x, y};
-                    break;
-            }
-            // check if the boat is in right bound
-            if (finalLoc[0] < 10 && finalLoc[1] < 10 && finalLoc[0] > -1 && finalLoc[1] > -1) {
-                b = false; //correct, jump out of the loop
-=======
                     y = y - (len - 1);
                     finalLoc = new int[]{x, y};
                     break;
@@ -244,49 +144,29 @@ public class GridController {
                     b = false; //correct, jump out of the loop and keep setting grid
                 else
                     continue; //false, overlap occurs, reproduce the random number
->>>>>>> Stashed changes
                 // set grid
                 switch (dir) {
                     case 0:
                         for (int i = 0; i < len; i++) {
-<<<<<<< Updated upstream
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-=======
                             setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
->>>>>>> Stashed changes
                             firstLoc[1] = firstLoc[1] - 1;
                         }
                         break;
                     case 1:
-<<<<<<< Updated upstream
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-=======
                         for (int i = 0; i < len; i++) {
                             setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
->>>>>>> Stashed changes
                             firstLoc[0] = firstLoc[0] + 1;
                         }
                         break;
                     case 2:
-<<<<<<< Updated upstream
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-=======
                         for (int i = 0; i < len; i++) {
                             setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
->>>>>>> Stashed changes
                             firstLoc[1] = firstLoc[1] + 1;
                         }
                         break;
                     case 3:
-<<<<<<< Updated upstream
-                        for (int i = 0; i < 6; i++) {
-                            setGrid(firstLoc, Optional.of(FLAGS.C), Optional.of("C1"), false);
-=======
                         for (int i = 0; i < len; i++) {
                             setGrid(firstLoc, Optional.of(f), Optional.of(boatName), false);
->>>>>>> Stashed changes
                             firstLoc[0] = firstLoc[0] - 1;
                         }
                         break;
@@ -295,8 +175,6 @@ public class GridController {
             }
         }
     }
-<<<<<<< Updated upstream
-=======
 
     // method for check the whole boat if it is overlap
     // return true for overlap occurs
@@ -334,7 +212,6 @@ public class GridController {
         else
             return true; // overlap occurs
     }
->>>>>>> Stashed changes
 
     /**
      * Check if the boat is sunk or not
