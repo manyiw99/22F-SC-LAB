@@ -17,6 +17,14 @@ public class StartGame {
      */
     public boolean placeBoat(List<int[]> loc, FLAGS f, String name, boolean guess, String input, int length) {
         // check if the input value is duplicate
+
+        boolean valid = tool.PlacementValidation(input, length);
+        System.out.println(valid);
+        if (!valid) {
+            System.out.println("Your input value is invalid. Please try again.");
+            return false;
+        }
+
         boolean dup = true;
         for (int i = 0; i < loc.size(); i++) {
             if (oceanGrid.retrieveFlag(loc.get(i)).isPresent()) {
@@ -25,10 +33,7 @@ public class StartGame {
             }
         }
 
-        boolean valid = tool.PlacementValidation(input, length);
-        System.out.println(valid);
-
-        if (dup && valid) {
+        if (dup) {
 //            for (int i = 0; i < loc.size(); i++) {
 //                oceanGrid.setGrid(loc.get(i), Optional.of(f), Optional.of(name), guess);
 //            }
@@ -46,15 +51,10 @@ public class StartGame {
                 }
             }
             return true;
-        } else if (valid && !dup) {
+        } else {
             System.out.println("Your input value already exists. Please try again.");
             return false;
-        } else if (!valid && dup) {
-            System.out.println("Your input value is invalid. Please try again.");
-            return false;
         }
-        System.out.println("Your input value is invalid. Please try again.");
-        return false;
     }
 
     /**
