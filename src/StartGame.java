@@ -29,8 +29,21 @@ public class StartGame {
         System.out.println(valid);
 
         if (dup && valid) {
-            for (int i = 0; i < loc.size(); i++) {
-                oceanGrid.setGrid(loc.get(i), Optional.of(f), Optional.of(name), guess);
+//            for (int i = 0; i < loc.size(); i++) {
+//                oceanGrid.setGrid(loc.get(i), Optional.of(f), Optional.of(name), guess);
+//            }
+            if(loc.get(0)[0] == loc.get(1)[0]){ //Horizontal placement of boats
+                int min = Math.min(loc.get(0)[1], loc.get(1)[1]);
+                for (int i = 0; i < length; i++){
+                    int[] location = new int[]{loc.get(0)[0], min + i};
+                    oceanGrid.setGrid(location, Optional.of(f), Optional.of(name), guess);
+                }
+            } else {
+                int min = Math.min(loc.get(0)[0], loc.get(1)[0]);
+                for (int i = 0; i < length; i++){
+                    int[] location = new int[]{min + i, loc.get(0)[1]};
+                    oceanGrid.setGrid(location, Optional.of(f), Optional.of(name), guess);
+                }
             }
             return true;
         } else if (valid && !dup) {
@@ -69,6 +82,7 @@ public class StartGame {
             carrierLoc = tool.FormatInput(6, input);
             c_dup = placeBoat(carrierLoc, FLAGS.C, "C", false, input, 6);
         }
+        oceanGrid.drawGrid();
 
         // Place boat battleship------------------------------------------------------------------------------------
         boolean b1_dup = false;
@@ -78,6 +92,7 @@ public class StartGame {
             battleShip1Loc = tool.FormatInput(4, input);
             b1_dup = placeBoat(battleShip1Loc, FLAGS.B, "B1", false, input, 4);
         }
+        oceanGrid.drawGrid();
 
         boolean b2_dup = false;
         while (b2_dup == false) {
@@ -86,6 +101,7 @@ public class StartGame {
             battleShip2Loc = tool.FormatInput(4, input);
             b2_dup = placeBoat(battleShip2Loc, FLAGS.B, "B2", false, input, 4);
         }
+        oceanGrid.drawGrid();
 
         // Place boat s---------------------------------------------------------------------------------------------
         boolean s1_dup = false;
@@ -95,6 +111,7 @@ public class StartGame {
             submarine1Loc = tool.FormatInput(3, input);
             s1_dup = placeBoat(submarine1Loc, FLAGS.S, "S1", false, input, 3);
         }
+        oceanGrid.drawGrid();
 
         boolean s2_dup = false;
         while (s2_dup == false) {
@@ -103,6 +120,7 @@ public class StartGame {
             submarine2Loc = tool.FormatInput(3, input);
             s2_dup = placeBoat(submarine2Loc, FLAGS.S, "S2", false, input, 3);
         }
+        oceanGrid.drawGrid();
 
         boolean s3_dup = false;
         while (s3_dup == false) {
@@ -111,6 +129,7 @@ public class StartGame {
             submarine3Loc = tool.FormatInput(3, input);
             s3_dup = placeBoat(submarine3Loc, FLAGS.S, "S3", false, input, 3);
         }
+        oceanGrid.drawGrid();
 
         // Place boat p------------------------------------------------------------------------------------------------
         boolean p1_dup = false;
@@ -120,6 +139,7 @@ public class StartGame {
             patrol1Loc = tool.FormatInput(2, input);
             p1_dup = placeBoat(patrol1Loc, FLAGS.P, "P1", false, input, 2);
         }
+        oceanGrid.drawGrid();
 
         boolean p2_dup = false;
         while (p2_dup == false) {
@@ -128,6 +148,7 @@ public class StartGame {
             patrol2Loc = tool.FormatInput(2, input);
             p2_dup = placeBoat(patrol2Loc, FLAGS.P, "P2", false, input, 2);
         }
+        oceanGrid.drawGrid();
 
         boolean p3_dup = false;
         while (p3_dup == false) {
@@ -136,6 +157,7 @@ public class StartGame {
             patrol3Loc = tool.FormatInput(2, input);
             p3_dup = placeBoat(patrol3Loc, FLAGS.P, "P3", false, input, 2);
         }
+        oceanGrid.drawGrid();
 
         boolean p4_dup = false;
         while (p4_dup == false) {
@@ -144,6 +166,7 @@ public class StartGame {
             patrol4Loc = tool.FormatInput(2, input);
             p4_dup = placeBoat(patrol4Loc, FLAGS.P, "P4", false, input, 2);
         }
+        oceanGrid.drawGrid();
 
         System.out.println("Human has placed all boats.");
 
