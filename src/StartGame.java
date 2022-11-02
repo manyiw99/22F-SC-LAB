@@ -173,6 +173,7 @@ public class StartGame {
         targetGrid.generateRandomGrid();
         System.out.println("Computer has placed all boats.");
         targetGrid_show.drawGrid();
+        targetGrid.drawGrid();
         oceanGrid.drawGrid();
     }
 
