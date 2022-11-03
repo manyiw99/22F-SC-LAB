@@ -51,6 +51,9 @@ public class Tools {
     }
 
     public boolean GuessValidation(String InputLine) {
+        if (InputLine.length() != 2) {
+            return false;
+        }
         int c = convertLetterToInt(InputLine.charAt(0));
         int i = Integer.parseInt(InputLine.substring(1));
         if (c < 0 || c > 9 || i < 0 || i > 9) {
