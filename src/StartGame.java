@@ -78,7 +78,7 @@ public class StartGame {
         while (c_dup == false) {
             System.out.println("Place boats carrier (length 6): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null|| input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -92,7 +92,7 @@ public class StartGame {
         while (b1_dup == false) {
             System.out.println("Place boats BattleShip 1 (length 4): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -105,7 +105,7 @@ public class StartGame {
         while (b2_dup == false) {
             System.out.println("Place boats BattleShip 2 (length 4): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -119,7 +119,7 @@ public class StartGame {
         while (s1_dup == false) {
             System.out.println("Place s1 (length 3): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -132,7 +132,7 @@ public class StartGame {
         while (s2_dup == false) {
             System.out.println("Place s2 (length 3): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -145,7 +145,7 @@ public class StartGame {
         while (s3_dup == false) {
             System.out.println("Place s3 (length 3): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -159,7 +159,7 @@ public class StartGame {
         while (p1_dup == false) {
             System.out.println("Place p1 (length 2): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -172,7 +172,7 @@ public class StartGame {
         while (p2_dup == false) {
             System.out.println("Place p2 (length 2): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -185,7 +185,7 @@ public class StartGame {
         while (p3_dup == false) {
             System.out.println("Place p3 (length 2): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
@@ -198,7 +198,7 @@ public class StartGame {
         while (p4_dup == false) {
             System.out.println("Place p4 (length 2): ");
             String input = tool.readUser();
-            if (input.length() != 5) {
+            if (input == null || input.length() != 5) {
                 System.out.println("Your input value is invalid. Please try again.");
                 continue;
             }
