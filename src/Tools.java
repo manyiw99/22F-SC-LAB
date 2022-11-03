@@ -64,7 +64,7 @@ public class Tools {
     }
 
     public boolean PlacementValidation(String InputLine, int length) {
-        if(InputLine.length() != 5) {
+        if(InputLine.length() != 5 || InputLine == null) {
             return false;
         }
         String[] pos = InputLine.split(",");

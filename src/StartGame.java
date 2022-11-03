@@ -16,7 +16,6 @@ public class StartGame {
      * @param guess
      */
     public boolean placeBoat(List<int[]> loc, FLAGS f, String name, boolean guess, String input, int length) {
-        // check if the input value is duplicate
 
         boolean valid = tool.PlacementValidation(input, length);
         System.out.println(valid);
@@ -24,7 +23,7 @@ public class StartGame {
             System.out.println("Your input value is invalid. Please try again.");
             return false;
         }
-
+        // check if the input value is duplicate
         boolean dup = true;
         for (int i = 0; i < loc.size(); i++) {
             if (oceanGrid.retrieveFlag(loc.get(i)).isPresent()) {
@@ -79,6 +78,10 @@ public class StartGame {
         while (c_dup == false) {
             System.out.println("Place boats carrier (length 6): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             carrierLoc = tool.FormatInput(6, input);
             c_dup = placeBoat(carrierLoc, FLAGS.C, "C", false, input, 6);
         }
@@ -89,6 +92,10 @@ public class StartGame {
         while (b1_dup == false) {
             System.out.println("Place boats BattleShip 1 (length 4): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             battleShip1Loc = tool.FormatInput(4, input);
             b1_dup = placeBoat(battleShip1Loc, FLAGS.B, "B1", false, input, 4);
         }
@@ -98,6 +105,10 @@ public class StartGame {
         while (b2_dup == false) {
             System.out.println("Place boats BattleShip 2 (length 4): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             battleShip2Loc = tool.FormatInput(4, input);
             b2_dup = placeBoat(battleShip2Loc, FLAGS.B, "B2", false, input, 4);
         }
@@ -108,6 +119,10 @@ public class StartGame {
         while (s1_dup == false) {
             System.out.println("Place s1 (length 3): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             submarine1Loc = tool.FormatInput(3, input);
             s1_dup = placeBoat(submarine1Loc, FLAGS.S, "S1", false, input, 3);
         }
@@ -117,6 +132,10 @@ public class StartGame {
         while (s2_dup == false) {
             System.out.println("Place s2 (length 3): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             submarine2Loc = tool.FormatInput(3, input);
             s2_dup = placeBoat(submarine2Loc, FLAGS.S, "S2", false, input, 3);
         }
@@ -126,6 +145,10 @@ public class StartGame {
         while (s3_dup == false) {
             System.out.println("Place s3 (length 3): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             submarine3Loc = tool.FormatInput(3, input);
             s3_dup = placeBoat(submarine3Loc, FLAGS.S, "S3", false, input, 3);
         }
@@ -136,6 +159,10 @@ public class StartGame {
         while (p1_dup == false) {
             System.out.println("Place p1 (length 2): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             patrol1Loc = tool.FormatInput(2, input);
             p1_dup = placeBoat(patrol1Loc, FLAGS.P, "P1", false, input, 2);
         }
@@ -145,6 +172,10 @@ public class StartGame {
         while (p2_dup == false) {
             System.out.println("Place p2 (length 2): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             patrol2Loc = tool.FormatInput(2, input);
             p2_dup = placeBoat(patrol2Loc, FLAGS.P, "P2", false, input, 2);
         }
@@ -154,6 +185,10 @@ public class StartGame {
         while (p3_dup == false) {
             System.out.println("Place p3 (length 2): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             patrol3Loc = tool.FormatInput(2, input);
             p3_dup = placeBoat(patrol3Loc, FLAGS.P, "P3", false, input, 2);
         }
@@ -163,6 +198,10 @@ public class StartGame {
         while (p4_dup == false) {
             System.out.println("Place p4 (length 2): ");
             String input = tool.readUser();
+            if (input.length() != 5) {
+                System.out.println("Your input value is invalid. Please try again.");
+                continue;
+            }
             patrol4Loc = tool.FormatInput(2, input);
             p4_dup = placeBoat(patrol4Loc, FLAGS.P, "P4", false, input, 2);
         }
