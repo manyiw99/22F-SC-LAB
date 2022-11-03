@@ -70,7 +70,11 @@ public class StartGame {
 
         // Empty game board
         targetGrid_show.drawGrid();
+        //targetGrid.drawGrid();
         oceanGrid.drawGrid();
+
+        targetGrid.generateRandomGrid();
+        //targetGrid.drawGrid();
 
         tool = new Tools();
 
@@ -170,10 +174,9 @@ public class StartGame {
 
         System.out.println("Human has placed all boats.");
 
-        targetGrid.generateRandomGrid();
         System.out.println("Computer has placed all boats.");
         targetGrid_show.drawGrid();
-        targetGrid.drawGrid();
+
         oceanGrid.drawGrid();
     }
 
