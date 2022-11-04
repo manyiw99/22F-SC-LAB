@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class Tools {
@@ -51,7 +52,7 @@ public class Tools {
     }
 
     public boolean GuessValidation(String InputLine) {
-        if (InputLine.length() != 2) {
+        if (InputLine == null || InputLine.equals("  ") || InputLine.length() != 2) {
             return false;
         }
         int c = convertLetterToInt(InputLine.charAt(0));
@@ -73,6 +74,20 @@ public class Tools {
         }
         char start1 = pos[0].charAt(0);
         char start2 = pos[1].charAt(0);
+        HashSet<String> set = new HashSet<String>();
+        set.add("A");
+        set.add("B");
+        set.add("C");
+        set.add("D");
+        set.add("E");
+        set.add("F");
+        set.add("G");
+        set.add("H");
+        set.add("I");
+        set.add("J");
+        if (!set.contains(pos[0].substring(0,1)) || !set.contains(pos[1].substring(0,1))) {
+            return false;
+        }
         int pos1 = Integer.parseInt(pos[0].substring(1));
         int pos2 = Integer.parseInt(pos[1].substring(1));
         int dif1 = Math.abs(start2 - start1);
