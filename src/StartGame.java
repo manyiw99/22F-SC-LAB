@@ -10,19 +10,23 @@ public class StartGame {
     /**
      * Place user boats
      *
-     * @param loc
+     * @param input
      * @param f
      * @param name
      * @param guess
      */
-    public boolean placeBoat(List<int[]> loc, FLAGS f, String name, boolean guess, String input, int length) {
 
+    public boolean placeBoat(FLAGS f, String name, boolean guess, String input, int length) {
         boolean valid = tool.PlacementValidation(input, length);
-        System.out.println(valid);
+        //System.out.println(valid);
         if (!valid) {
             System.out.println("Your input value is invalid. Please try again.");
             return false;
         }
+
+
+        List<int[]> loc = tool.FormatInput(length, input);
+
         // check if the input value is duplicate
         boolean dup = true;
         for (int i = 0; i < loc.size(); i++) {
@@ -33,9 +37,6 @@ public class StartGame {
         }
 
         if (dup) {
-//            for (int i = 0; i < loc.size(); i++) {
-//                oceanGrid.setGrid(loc.get(i), Optional.of(f), Optional.of(name), guess);
-//            }
             if(loc.get(0)[0] == loc.get(1)[0]){ //Horizontal placement of boats
                 int min = Math.min(loc.get(0)[1], loc.get(1)[1]);
                 for (int i = 0; i < length; i++){
@@ -78,12 +79,9 @@ public class StartGame {
         while (c_dup == false) {
             System.out.println("Place boats carrier (length 6): ");
             String input = tool.readUser();
-            if (input == null|| input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            carrierLoc = tool.FormatInput(6, input);
-            c_dup = placeBoat(carrierLoc, FLAGS.C, "C", false, input, 6);
+            // carrierLoc = tool.FormatInput(6, input);
+            c_dup = placeBoat(FLAGS.C, "C", false, input, 6);
+
         }
         oceanGrid.drawGrid();
 
@@ -92,12 +90,9 @@ public class StartGame {
         while (b1_dup == false) {
             System.out.println("Place boats BattleShip 1 (length 4): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            battleShip1Loc = tool.FormatInput(4, input);
-            b1_dup = placeBoat(battleShip1Loc, FLAGS.B, "B1", false, input, 4);
+            // battleShip1Loc = tool.FormatInput(4, input);
+            b1_dup = placeBoat(FLAGS.B, "B1", false, input, 4);
+
         }
         oceanGrid.drawGrid();
 
@@ -105,105 +100,73 @@ public class StartGame {
         while (b2_dup == false) {
             System.out.println("Place boats BattleShip 2 (length 4): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            battleShip2Loc = tool.FormatInput(4, input);
-            b2_dup = placeBoat(battleShip2Loc, FLAGS.B, "B2", false, input, 4);
+            // battleShip2Loc = tool.FormatInput(4, input);
+            b2_dup = placeBoat(FLAGS.B, "B2", false, input, 4);
         }
         oceanGrid.drawGrid();
 
         // Place boat s---------------------------------------------------------------------------------------------
         boolean s1_dup = false;
         while (s1_dup == false) {
-            System.out.println("Place s1 (length 3): ");
+            System.out.println("Place boats Submarine 1 (length 3): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            submarine1Loc = tool.FormatInput(3, input);
-            s1_dup = placeBoat(submarine1Loc, FLAGS.S, "S1", false, input, 3);
+            // submarine1Loc = tool.FormatInput(3, input);
+            s1_dup = placeBoat(FLAGS.S, "S1", false, input, 3);
         }
         oceanGrid.drawGrid();
 
         boolean s2_dup = false;
         while (s2_dup == false) {
-            System.out.println("Place s2 (length 3): ");
+            System.out.println("Place boats Submarine 2 (length 3): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            submarine2Loc = tool.FormatInput(3, input);
-            s2_dup = placeBoat(submarine2Loc, FLAGS.S, "S2", false, input, 3);
+            // submarine2Loc = tool.FormatInput(3, input);
+            s2_dup = placeBoat(FLAGS.S, "S2", false, input, 3);
         }
         oceanGrid.drawGrid();
 
         boolean s3_dup = false;
         while (s3_dup == false) {
-            System.out.println("Place s3 (length 3): ");
+            System.out.println("Place boats Submarine 3 (length 3): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            submarine3Loc = tool.FormatInput(3, input);
-            s3_dup = placeBoat(submarine3Loc, FLAGS.S, "S3", false, input, 3);
+            // submarine3Loc = tool.FormatInput(3, input);
+            s3_dup = placeBoat(FLAGS.S, "S3", false, input, 3);
         }
         oceanGrid.drawGrid();
 
         // Place boat p------------------------------------------------------------------------------------------------
         boolean p1_dup = false;
         while (p1_dup == false) {
-            System.out.println("Place p1 (length 2): ");
+            System.out.println("Place boats Patrol 1 (length 2): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            patrol1Loc = tool.FormatInput(2, input);
-            p1_dup = placeBoat(patrol1Loc, FLAGS.P, "P1", false, input, 2);
+            // patrol1Loc = tool.FormatInput(2, input);
+            p1_dup = placeBoat(FLAGS.P, "P1", false, input, 2);
         }
         oceanGrid.drawGrid();
 
         boolean p2_dup = false;
         while (p2_dup == false) {
-            System.out.println("Place p2 (length 2): ");
+            System.out.println("Place boats Patrol 2 (length 2): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            patrol2Loc = tool.FormatInput(2, input);
-            p2_dup = placeBoat(patrol2Loc, FLAGS.P, "P2", false, input, 2);
+            // patrol2Loc = tool.FormatInput(2, input);
+            p2_dup = placeBoat(FLAGS.P, "P2", false, input, 2);
         }
         oceanGrid.drawGrid();
 
         boolean p3_dup = false;
         while (p3_dup == false) {
-            System.out.println("Place p3 (length 2): ");
+            System.out.println("Place boats Patrol 3 (length 2): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            patrol3Loc = tool.FormatInput(2, input);
-            p3_dup = placeBoat(patrol3Loc, FLAGS.P, "P3", false, input, 2);
+            // patrol3Loc = tool.FormatInput(2, input);
+            p3_dup = placeBoat( FLAGS.P, "P3", false, input, 2);
         }
         oceanGrid.drawGrid();
 
         boolean p4_dup = false;
         while (p4_dup == false) {
-            System.out.println("Place p4 (length 2): ");
+            System.out.println("Place boats Patrol 4 (length 2): ");
             String input = tool.readUser();
-            if (input == null || input.length() != 5) {
-                System.out.println("Your input value is invalid. Please try again.");
-                continue;
-            }
-            patrol4Loc = tool.FormatInput(2, input);
-            p4_dup = placeBoat(patrol4Loc, FLAGS.P, "P4", false, input, 2);
+            // patrol4Loc = tool.FormatInput(2, input);
+            p4_dup = placeBoat(FLAGS.P, "P4", false, input, 2);
         }
         oceanGrid.drawGrid();
 
@@ -212,7 +175,7 @@ public class StartGame {
         targetGrid.generateRandomGrid();
         System.out.println("Computer has placed all boats.");
         targetGrid_show.drawGrid();
-        targetGrid.drawGrid();
+        //targetGrid.drawGrid();
         oceanGrid.drawGrid();
     }
 
@@ -226,15 +189,33 @@ public class StartGame {
         return new Random().nextBoolean();
     }
 
+    public int[] computerGuess(GridController gridController){
+        List<int[]> allLoc = new ArrayList<>();
+
+        for(int i =0; i<10; i++){
+            for(int j=0; j<10; j++){
+                if(gridController.retrieveFlag(new int[]{i,j}).isEmpty()){
+                    allLoc.add(new int[]{i,j});
+                }
+                else if(!((gridController.retrieveFlag(new int[]{i,j}).get() == FLAGS.X) || (gridController.retrieveFlag(new int[]{i,j}).get() == FLAGS.O))){
+                    allLoc.add(new int[]{i,j});
+                }
+            }
+        }
+
+        int index = (int)(Math.random() * allLoc.size());
+        return allLoc.get(index);
+    }
+
     /**
      * Guess process
      *
      * @param firstPlayer
      * @return result
      */
-    public String guess(boolean firstPlayer) {
+    public boolean guess(boolean firstPlayer) {
         // System.out.println(Arrays.toString(guessNum));
-        String result = null;
+        boolean result = false;
 
         // Human guess round
         if (firstPlayer) {
@@ -254,7 +235,7 @@ public class StartGame {
             }
 
             if (targetGrid.retrieveFlag(guessNum).isEmpty()) {  //Grid that never been chosen before
-                result = "MISS";
+                result = false;
                 targetGrid.setGrid(guessNum, Optional.of(FLAGS.O), Optional.empty(), true);
                 targetGrid_show.setGrid(guessNum, Optional.of(FLAGS.O), Optional.empty(), true);
                 System.out.println("MISS");
@@ -267,10 +248,12 @@ public class StartGame {
                     targetGrid_show.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
 
                     if (targetGrid.isSunk(targetGrid.retrieveName(guessNum).get())) {
-                        result = "sunk";
+                        result = false;
                         List<int[]> locs = targetGrid.recoverFlag(targetGrid.retrieveName(guessNum).get());
                         for (int i = 0; i < locs.size(); i++) {
                             targetGrid_show.setGrid(locs.get(i), targetGrid.retrieveFlag(locs.get(i)),
+                                    targetGrid.retrieveName(locs.get(i)), true);
+                            targetGrid.setGrid(locs.get(i), targetGrid.retrieveFlag(locs.get(i)),
                                     targetGrid.retrieveName(locs.get(i)), true);
                         }
 
@@ -278,13 +261,14 @@ public class StartGame {
                         targetGrid.setSunkNum(targetGrid.getSunkNum() + 1);
 
                         if (targetGrid.isFinish()) {
-                            result = "Human wins";
-                            System.out.println("all boats of computer sunk");
-                            return result;
+
+                            result = true;
+                            System.out.println("All boats of computer sunk");
+
                         }
                         targetGrid_show.drawGrid();
                     } else {
-                        result = "HIT";
+                        result = false;
                         targetGrid.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
                         targetGrid_show.setGrid(guessNum, Optional.of(FLAGS.X), targetGrid.retrieveName(guessNum), true);
                         System.out.println("HIT");
@@ -302,27 +286,28 @@ public class StartGame {
         } else {
             System.out.println("Computer guess round");
             // Randomly generate the guess location
-            int[] guessNum = {new Random().nextInt(10), new Random().nextInt(10)};
+            int[] guessNum = computerGuess(oceanGrid);
             System.out.println("Computer guesses location: " + Arrays.toString(guessNum));
 
             if (oceanGrid.retrieveFlag(guessNum).isEmpty()) {
-                result = "MISS";
+                result = false;
                 oceanGrid.setGrid(guessNum, Optional.of(FLAGS.O), oceanGrid.retrieveName(guessNum), true);
                 System.out.println("MISS");
                 oceanGrid.drawGrid();
             } else if ((oceanGrid.retrieveFlag(guessNum).get() == FLAGS.C) || (oceanGrid.retrieveFlag(guessNum).get() == FLAGS.B)
                     || (oceanGrid.retrieveFlag(guessNum).get() == FLAGS.S) || (oceanGrid.retrieveFlag(guessNum).get() == FLAGS.P)) {
-                result = "HIT";
+                result = false;
                 oceanGrid.setGrid(guessNum, Optional.of(FLAGS.X), oceanGrid.retrieveName(guessNum), true);
                 System.out.println("HIT");
+                System.out.println("Computer hits boat "+oceanGrid.retrieveName(guessNum).get());
 
                 if (oceanGrid.isSunk(oceanGrid.retrieveName(guessNum).get())) {
-                    result = "sunk";
+                    result = false;
                     System.out.println("Boats " + oceanGrid.retrieveName(guessNum).get() + " of human sunk");
                     oceanGrid.setSunkNum(oceanGrid.getSunkNum() + 1);
 
                     if (oceanGrid.isFinish()) {
-                        result = "Computer wins";
+                        result = true;
                         System.out.println("All boats of human sunk");
                         return result;
                     }
@@ -348,10 +333,17 @@ public class StartGame {
         // Decide first player of each round, true means human first
         boolean firstPlayer = startGame.isFirst();
 
-        String result = null;
-        while ((result != "Human wins") && (result != "Computer wins")) {
+        boolean result = false;
+        while (!result) {
+
             result = startGame.guess(firstPlayer);
             firstPlayer = !firstPlayer;
+        }
+
+        if(firstPlayer){
+            System.out.println("Computer wins!");
+        }else{
+            System.out.println("Human wins!");
         }
     }
 }

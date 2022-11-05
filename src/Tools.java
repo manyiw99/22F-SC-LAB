@@ -56,6 +56,11 @@ public class Tools {
             return false;
         }
         int c = convertLetterToInt(InputLine.charAt(0));
+
+        if(!Character.isDigit(InputLine.charAt(1))){
+            return false;
+        }
+
         int i = Integer.parseInt(InputLine.substring(1));
         if (c < 0 || c > 9 || i < 0 || i > 9) {
 //            System.out.println("Sorry, your input is invalid. Please try again.");
@@ -65,9 +70,14 @@ public class Tools {
     }
 
     public boolean PlacementValidation(String InputLine, int length) {
-        if(InputLine.length() != 5 || InputLine == null) {
+        if(InputLine == null){
             return false;
+        }else{
+            if(InputLine.length() != 5) {
+                return false;
+            }
         }
+
         String[] pos = InputLine.split(",");
         if (!GuessValidation(pos[0]) || !GuessValidation(pos[1])) {
             return false;
@@ -106,6 +116,7 @@ public class Tools {
         }
         return true;
     }
+
 
     /**
      * 1. Input format check
