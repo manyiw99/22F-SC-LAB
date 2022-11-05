@@ -15,14 +15,15 @@ public class StartGame {
      * @param name
      * @param guess
      */
-    public boolean placeBoat(FLAGS f, String name, boolean guess, String input, int length) {
 
+    public boolean placeBoat(FLAGS f, String name, boolean guess, String input, int length) {
         boolean valid = tool.PlacementValidation(input, length);
         //System.out.println(valid);
         if (!valid) {
             System.out.println("Your input value is invalid. Please try again.");
             return false;
         }
+
 
         List<int[]> loc = tool.FormatInput(length, input);
 
@@ -80,6 +81,7 @@ public class StartGame {
             String input = tool.readUser();
             // carrierLoc = tool.FormatInput(6, input);
             c_dup = placeBoat(FLAGS.C, "C", false, input, 6);
+
         }
         oceanGrid.drawGrid();
 
@@ -90,6 +92,7 @@ public class StartGame {
             String input = tool.readUser();
             // battleShip1Loc = tool.FormatInput(4, input);
             b1_dup = placeBoat(FLAGS.B, "B1", false, input, 4);
+
         }
         oceanGrid.drawGrid();
 
@@ -258,8 +261,10 @@ public class StartGame {
                         targetGrid.setSunkNum(targetGrid.getSunkNum() + 1);
 
                         if (targetGrid.isFinish()) {
+
                             result = true;
                             System.out.println("All boats of computer sunk");
+
                         }
                         targetGrid_show.drawGrid();
                     } else {
@@ -304,6 +309,7 @@ public class StartGame {
                     if (oceanGrid.isFinish()) {
                         result = true;
                         System.out.println("All boats of human sunk");
+                        return result;
                     }
                 }
 
@@ -329,6 +335,7 @@ public class StartGame {
 
         boolean result = false;
         while (!result) {
+
             result = startGame.guess(firstPlayer);
             firstPlayer = !firstPlayer;
         }
