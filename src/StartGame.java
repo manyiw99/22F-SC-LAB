@@ -248,8 +248,8 @@ public class StartGame {
                 if (!valid) {
                     System.out.println("Sorry, your input is invalid. Please try again");
                 } else {
-                    guessNum[0] = tool.convertLetterToInt(input.charAt(0));
-                    guessNum[1] = Integer.parseInt(input.substring(1));
+                    guessNum[1] = tool.convertLetterToInt(input.charAt(0));
+                    guessNum[0] = Integer.parseInt(input.substring(1));
                 }
             }
 
@@ -280,6 +280,7 @@ public class StartGame {
                         if (targetGrid.isFinish()) {
                             result = "Human wins";
                             System.out.println("all boats of computer sunk");
+                            return result;
                         }
                         targetGrid_show.drawGrid();
                     } else {
@@ -323,6 +324,7 @@ public class StartGame {
                     if (oceanGrid.isFinish()) {
                         result = "Computer wins";
                         System.out.println("All boats of human sunk");
+                        return result;
                     }
                 }
 
@@ -347,7 +349,7 @@ public class StartGame {
         boolean firstPlayer = startGame.isFirst();
 
         String result = null;
-        while ((result != "Human wins") || (result != "Computer wins")) {
+        while ((result != "Human wins") && (result != "Computer wins")) {
             result = startGame.guess(firstPlayer);
             firstPlayer = !firstPlayer;
         }
