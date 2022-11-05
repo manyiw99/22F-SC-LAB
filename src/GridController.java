@@ -219,7 +219,7 @@ public class GridController {
      */
     public boolean isSunk(String name) {
         boolean result = false;
-        System.out.println(name);
+        //System.out.println(name);
 
         for (int i = 0; i < grids.length; i++) {
             for (int j = 0; j < grids[0].length; j++) {
@@ -227,7 +227,7 @@ public class GridController {
                     if (grids[i][j].getName().get() == name) {
                         if (grids[i][j].getFlag().get() != FLAGS.X) {
                             result = false;
-                            break;
+                            return result;
                         } else {
                             result = true;
 

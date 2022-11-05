@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class Tools {
@@ -51,7 +52,15 @@ public class Tools {
     }
 
     public boolean GuessValidation(String InputLine) {
+        if (InputLine == null || InputLine.equals("  ") || InputLine.length() != 2) {
+            return false;
+        }
         int c = convertLetterToInt(InputLine.charAt(0));
+
+        if(!Character.isDigit(InputLine.charAt(1))){
+            return false;
+        }
+
         int i = Integer.parseInt(InputLine.substring(1));
         if (c < 0 || c > 9 || i < 0 || i > 9) {
 //            System.out.println("Sorry, your input is invalid. Please try again.");
@@ -61,15 +70,34 @@ public class Tools {
     }
 
     public boolean PlacementValidation(String InputLine, int length) {
-        if(InputLine.length() != 5) {
+        if(InputLine == null){
             return false;
+        }else{
+            if(InputLine.length() != 5) {
+                return false;
+            }
         }
+
         String[] pos = InputLine.split(",");
         if (!GuessValidation(pos[0]) || !GuessValidation(pos[1])) {
             return false;
         }
         char start1 = pos[0].charAt(0);
         char start2 = pos[1].charAt(0);
+        HashSet<String> set = new HashSet<String>();
+        set.add("A");
+        set.add("B");
+        set.add("C");
+        set.add("D");
+        set.add("E");
+        set.add("F");
+        set.add("G");
+        set.add("H");
+        set.add("I");
+        set.add("J");
+        if (!set.contains(pos[0].substring(0,1)) || !set.contains(pos[1].substring(0,1))) {
+            return false;
+        }
         int pos1 = Integer.parseInt(pos[0].substring(1));
         int pos2 = Integer.parseInt(pos[1].substring(1));
         int dif1 = Math.abs(start2 - start1);
@@ -88,6 +116,7 @@ public class Tools {
         }
         return true;
     }
+
 
     /**
      * 1. Input format check
