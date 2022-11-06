@@ -125,7 +125,7 @@ public class Tools {
      *        length = 0 means user is guessing (not place boats), place the return value in the first element of List<int[]>
      * @return List<int[]> means all the cells user chose
      */
-    public List<int[]> FormatInput(int length, String inputLine){
+    public List<int[]> formatInput(int length, String inputLine){
 //        String inputLine = readUser();
         // Convert string to List<String>, split by comma
         List<String> locations = Arrays.asList(inputLine.split("\\s*,\\s*"));

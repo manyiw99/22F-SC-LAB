@@ -25,7 +25,7 @@ public class StartGame {
         }
 
 
-        List<int[]> loc = tool.FormatInput(length, input);
+        List<int[]> loc = tool.formatInput(length, input);
 
         // check if the input value is duplicate
         boolean dup = true;
