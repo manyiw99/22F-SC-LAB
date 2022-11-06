@@ -51,17 +51,17 @@ public class Tools {
         return 10;
     }
 
-    public boolean GuessValidation(String InputLine) {
-        if (InputLine == null || InputLine.equals("  ") || InputLine.length() != 2) {
+    public boolean guessValidation(String inputLine) {
+        if (inputLine == null || inputLine.equals("  ") || inputLine.length() != 2) {
             return false;
         }
-        int c = convertLetterToInt(InputLine.charAt(0));
+        int c = convertLetterToInt(inputLine.charAt(0));
 
-        if(!Character.isDigit(InputLine.charAt(1))){
+        if(!Character.isDigit(inputLine.charAt(1))){
             return false;
         }
 
-        int i = Integer.parseInt(InputLine.substring(1));
+        int i = Integer.parseInt(inputLine.substring(1));
         if (c < 0 || c > 9 || i < 0 || i > 9) {
 //            System.out.println("Sorry, your input is invalid. Please try again.");
             return false;
@@ -69,17 +69,17 @@ public class Tools {
         return true;
     }
 
-    public boolean PlacementValidation(String InputLine, int length) {
-        if(InputLine == null){
+    public boolean placementValidation(String inputLine, int length) {
+        if(inputLine == null){
             return false;
         }else{
-            if(InputLine.length() != 5) {
+            if(inputLine.length() != 5) {
                 return false;
             }
         }
 
-        String[] pos = InputLine.split(",");
-        if (!GuessValidation(pos[0]) || !GuessValidation(pos[1])) {
+        String[] pos = inputLine.split(",");
+        if (!guessValidation(pos[0]) || !guessValidation(pos[1])) {
             return false;
         }
         char start1 = pos[0].charAt(0);

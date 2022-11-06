@@ -17,7 +17,7 @@ public class StartGame {
      */
 
     public boolean placeBoat(FLAGS f, String name, boolean guess, String input, int length) {
-        boolean valid = tool.PlacementValidation(input, length);
+        boolean valid = tool.placementValidation(input, length);
         //System.out.println(valid);
         if (!valid) {
             System.out.println("Your input value is invalid. Please try again.");
@@ -225,7 +225,7 @@ public class StartGame {
                 System.out.println("Human guess round");
                 System.out.println("Enter the guess location:");
                 String input = tool.readUser();
-                valid = tool.GuessValidation(input);
+                valid = tool.guessValidation(input);
                 if (!valid) {
                     System.out.println("Sorry, your input is invalid. Please try again");
                 } else {
